@@ -1,0 +1,103 @@
+h1,h2,h3,p,body,ul,li{
+    padding: 0;
+    margin: 0;
+}
+ul{
+    list-style: none;/*去掉列表默认样式 小黑点*/
+}
+a{
+    text-decoration: none;/*去下划线*/
+}
+header{
+    width: 100%;
+    background-image: url("/static/imgs/xy.jpg");
+    background-size: 100% 100%;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+}
+nav{
+    width: 1340px;
+    height: 80px;
+    margin: 0 auto;
+    line-height: 80px;
+    position: relative;
+}
+.logo{
+    font-size: 30px;
+    float: left;
+    margin-left: 55px;
+}
+.logo a{
+    color: #c1edf2;
+}
+nav>ul{
+    float: left;
+    margin-left: 100px;
+}
+nav>ul>li{
+    float: left;
+    padding: 0 30px;
+    font-size: 20px;
+    font-weight: bold;
+}
+nav>ul>li>a{
+    color:#e5f2f2;
+}
+nav>ul>li>a:hover{
+    color: gold;
+}
+/*******************主体内容*****************/
+.main{
+    width: 1140px;
+    margin: 400px auto 0;
+
+}
+/*main>div{*/
+/*    background-image: url("../imgs/timg.jpeg");*/
+/*    background-size: 1140px 400px;*/
+/*}*/
+p,h1{
+    text-align: center;
+}
+#title{
+    padding: 10px;
+}
+textarea{
+    border: 5px double black;
+    margin-bottom: 10px;
+}
+#btn{
+    width: 90px;
+    position: absolute;
+    right: 530px;
+    top: 135px;
+    cursor: pointer;
+}
+#content{
+    margin-left: 330px;
+    margin-top: -250px;
+    width: 900px;
+    height:600px;
+}
+textarea{
+    margin-left: -400px;
+    margin-top: 300px;
+    border: 5px double black;
+    width: 700px;
+    height: 500px;
+    color: black;
+    background-image: url("/static/imgs/timg.jpeg");
+    background-size: 700px 500px;
+    font-size: 18px;
+}
+#title{
+    margin-top: 125px;
+}
+body{
+    background-image: url("/static/imgs/tuchong09.jpg");
+    background-size:100% 100%;
+}
+footer{
+    margin-top: 290px;
+}

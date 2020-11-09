@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+    <link href="/static/css/register_css.css" type="text/css" rel="stylesheet">
+</head>
+<script src="/static/js/jquery-1.11.3.js"></script>
+<body>
+	<div>
+        <input type="text" id="username" placeholder="用户名" >
+         <input type="text"  id="nickname" placeholder="昵称">
+         <input type="text"  id="email" placeholder="电子邮件">
+         <button  id="sms" onclick="send_email()">获取验证码</button>
+         <input type="text"  id="codede" placeholder="请输入验证码">
+         <input type="password" id="password_1" placeholder="密码">
+         <input type="password" id="password_2" placeholder="确认密码">
+		 <button onclick="logup()" id="btn">注册</button>
+	</div>
+</body>
+
+<script>
+    function logup() {
+		var username = $('#username').val();
+		var nickname = $('#nickname').val();
+		var email = $('#email').val();
+		var password_1 = $('#password_1').val();
+		var password_2 = $('#password_2').val();
+		var sms = $('#codede').val();
+		var post_data = {"username":username,"nickname":nickname,"email":email,"password_1":password_1,"password_2":password_2,"sms":sms};
+		$.ajax({
+			url:"/register/register",
+			type:"POST",
+			dataType:'json',
+			data:JSON.stringify(post_data),
+			contentType:"application/json",
+			success:function(res){
+				if(res.code == 200){
+					alert("注册成功");
+					//将后端返回的数据 保存到浏览器的本地存储
+					window.localStorage.setItem("dnblog_token",res.data.token);
+					window.localStorage.setItem("dnblog_user",res.username);
+					window.location = '/login/home_page'
+				}else {
+					alert(res.error)
+				}
+			}
+		})
+	}
+	function send_email() {
+        var email = $('#email').val();
+		var post_data = {"email":email};
+		console.log(post_data);
+		$.ajax({
+			url: '/register/send_email',
+			type:'POST',
+			data: JSON.stringify(post_data),
+			contentType: 'appcliation/json',
+			dataType:'json',
+			success:function (res) {
+				if(res.code == 200){
+					alert('邮件已经发送到你的邮箱,请查收!特别提醒：如果您用的QQ邮箱请在邮箱垃圾箱查看验证码')
+				}else{
+                    alert(res.error)
+                }
+			}
+		})
+    }
+</script>
+
+
+</html>

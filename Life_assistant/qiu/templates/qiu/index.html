@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>双色球主页</title>
+    <link href="/static/css/qiu.css" type="text/css" rel="stylesheet">
+    <script src="/static/js/jquery-1.11.3.js"></script>
+</head>
+<body>
+    <header>
+        <!-- 导航栏 -->
+        <nav>
+            <!-- logo -->
+            <h1 class="logo">
+                <a href="#">生活小助手</a>
+            </h1>
+            <!-- 导航菜单 -->
+            <ul>
+                <li>
+                    <a href="/login/home_page">网站首页</a>
+                </li>
+                <li>
+                    <a href="/tq/index">智能天气</a>
+                </li>
+                <li id="bbs">
+                    <a href="/qiu/index">双色球</a>
+                </li>
+                <li>
+                    <a href="/speech/index">语音识别</a>
+                </li>
+                <li>
+                    <a href="/note/all_notes">生活笔记</a>
+                </li>
+                <li>
+                    <a href="/dict/check_word">单词查询</a>
+                </li>
+                <li>
+                    <a href="/article/artlist">吐槽论坛</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="tu">主人 !在这里您可以实现一夜暴富的梦想哟</div>
+            <button id="btn1">生成双色球 </button>
+{#            <input id="btn2" type="submit" value="查询历史中奖期数" onclick="function ff() {}">#}
+            <button id="btn2">查询历史中奖期数</button>
+            <input  type="text" value="" placeholder="在这里输入您要查询的期数,例如:20081"
+            id="number">
+        <div id="d0"></div><!-- 图片插入的位置 -->
+    <div id="t2">
+    </div>
+    <div id="dt4">搏一搏单车变摩托</div>
+    <div id="dt5">赌一赌宝马变路虎</div>
+
+    </main>
+
+    <script>
+        $(function () {
+            var token = window.localStorage.getItem('dnblog_token');
+            var username = window.localStorage.getItem('dnblog_user');
+            var post_data = {'token':token,'username':username};
+            $.ajax({
+                    type:"post",
+                    contentType:"application/json",
+                    dataType:"json",
+                    url:"/login/validation_state",
+                    data:JSON.stringify(post_data),
+                    beforeSend: function(request) {request.setRequestHeader("Authorization", token)},
+                    success:function (result) {
+                        if(result.code!=200){
+                            alert(result.error);
+                            window.location = '/login/index'
+                        }
+                    }
+            })
+        })
+    </script>
+    <script>
+        $(function () {
+             $.ajax({
+                    url:"/qiu/generate",
+                    type:"GET",
+                    dataType:"json",
+                    success:function(res){
+                    var html = "";
+                        html+='<div class="ipp"></div>';
+                        html+='<div class="ip"><P>主人，下面是为您生成的双色球，记得购买哟</P></div>';
+                        html+='<table class="ta0">';
+                        html+='<tr id="tr0">';
+                        html+='<td class="tr11">名称</td>';
+                        html+='<td class="tr22" colspan="7">球号</td>';
+                        html+='<td class="tr11">方式</td></tr>';
+                        html+='<tr id="tr1">';
+                        html+='<td class="tr11">双色球</td>';
+                    $(res).each(function (index, obj) {
+                        html+='<td class="tr21">'+obj+'</td>';
+                    });
+                        html+='<td class="tr11">随机</td></tr><table>';
+                        $("#t2").html(html);
+                    }
+                });
+        })
+    </script>
+    <script>
+
+                    $("#btn1").click(function () {
+                $.ajax({
+                    url:"/qiu/generate",
+                    type:"GET",
+                    dataType:"json",
+                    success:function(res){
+                    var html = "";
+                        html+='<div class="ipp"></div>';
+                        html+='<div class="ip"><P>主人，下面是为您生成的双色球，记得购买哟</P></div>';
+                        html+='<table class="ta0">';
+                        html+='<tr id="tr0">';
+                        html+='<td class="tr11">名称</td>';
+                        html+='<td class="tr22" colspan="7">球号</td>';
+                        html+='<td class="tr11">方式</td></tr>';
+                        html+='<tr id="tr1">';
+                        html+='<td class="tr11">双色球</td>';
+                    $(res).each(function (index, obj) {
+                        html+='<td class="tr21">'+obj+'</td>';
+                    });
+                        html+='<td class="tr11">随机</td></tr><table>';
+                        $("#t2").html(html);
+                    }
+                })
+            })
+    </script>
+
+    <script>
+            $("#btn2").click(function(){
+                 var num = $("#number").val();
+                 var post_data = {"number":num};
+                    $.ajax({
+                    url:"/qiu/query",
+                    type:"post",
+                    dataType:"json",
+                    data:JSON.stringify(post_data),
+			        contentType:'application/json',
+                    success:function(res){
+                    var htmls = "";
+                    if(res.code!=200){alert(res.error)}
+                    else{
+                        htmls+='<div class="ipp"></div>';
+                        htmls+='<div class="ip"><P>主人，下面是您要查看的'+res.nper+'期的中奖号码</P></div>';
+                        htmls+='<table class="ta0">';
+                        htmls+='<tr id="tr0">';
+                        htmls+='<td class="tr11">彩票期数</td>';
+                        htmls+='<td class="tr22" colspan="7">球号</td>';
+                        htmls+='<td class="tr11">开奖日期</td></tr>';
+                        htmls+='<tr id="tr1">';
+                        htmls+='<td class="tr21">'+res.nper+'</td>';
+                        htmls+='<td class="tr21">'+res.red_one+'</td>';
+                        htmls+='<td class="tr21">'+res.red_two+'</td>';
+                        htmls+='<td class="tr21">'+res.red_three+'</td>';
+                        htmls+='<td class="tr21">'+res.red_four+'</td>';
+                        htmls+='<td class="tr21">'+res.red_five+'</td>';
+                        htmls+='<td class="tr21">'+res.red_six+'</td>';
+                        htmls+='<td class="tr21">'+res.blue+'</td>';
+                        htmls+='<td class="tr11">'+res.time+'</td></tr>';
+                    }
+                    $("#t2").html(htmls);
+                    }
+                })
+            })
+</script>
+    <script>
+    $("#number").change(function () {
+        var num = $("#number").val();
+        var post_data = {"number":num};
+        $.ajax({
+            url:"/qiu/query",
+            type:"post",
+            dataType:"json",
+            data:JSON.stringify(post_data),
+            contentType:'application/json',
+            success:function (res) {
+                var htmls = "";
+                    if(res.code!=200){alert(res.error)}
+                    else{
+                        htmls+='<div class="ipp"></div>';
+                        htmls+='<div class="ip"><P>主人，下面是您要查看的'+res.nper+'期的中奖号码</P></div>';
+                        htmls+='<table class="ta0">';
+                        htmls+='<tr id="tr0">';
+                        htmls+='<td class="tr11">彩票期数</td>';
+                        htmls+='<td class="tr22" colspan="7">球号</td>';
+                        htmls+='<td class="tr11">开奖日期</td></tr>';
+                        htmls+='<tr id="tr1">';
+                        htmls+='<td class="tr21">'+res.nper+'</td>';
+                        htmls+='<td class="tr21">'+res.red_one+'</td>';
+                        htmls+='<td class="tr21">'+res.red_two+'</td>';
+                        htmls+='<td class="tr21">'+res.red_three+'</td>';
+                        htmls+='<td class="tr21">'+res.red_four+'</td>';
+                        htmls+='<td class="tr21">'+res.red_five+'</td>';
+                        htmls+='<td class="tr21">'+res.red_six+'</td>';
+                        htmls+='<td class="tr21">'+res.blue+'</td>';
+                        htmls+='<td class="tr11">'+res.time+'</td></tr>';
+                    }
+                    $("#t2").html(htmls);
+            }
+        })
+
+    })
+
+</script>
+</body>
+</html>

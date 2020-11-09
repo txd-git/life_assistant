@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>英汉互译</title>
+    <!-- 引入外部css文件 -->
+    <link rel="stylesheet" href="/static/css/dict.css">
+    <script src="/static/js/jquery-1.11.3.js"></script>
+</head>
+<body>
+<header>
+    <nav>
+        <h1 class="logo">
+            <a href="#">生活小助手</a>
+        </h1>
+        <ul>
+            <li><a href="/login/home_page">网站首页</a></li>
+            <li><a href="/tq/index">智能天气</a></li>
+            <li><a href="/qiu/index">双色球</a></li>
+            <li><a href="/speech/index">语音识别</a></li>
+            <li><a href="/note/all_notes">生活笔记</a></li>
+            <li><a id='word' href="/dict/check_word">单词查询</a></li>
+            <li><a href="/article/artlist">吐槽论坛</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div id="tip">
+        输入单词或语句,点击按钮查询
+    </div>
+    <div class='contain'>
+        <div class='input'>
+            <input type="text"  id="in" placeholder="请输入要查询的单词">
+        </div>
+        <div class='output'>
+            <input type="text" id="out" placeholder="查询结果">
+        </div>
+        <div class="b">
+            <button id='btn'>智障翻译</button>
+        </div>
+    </div>
+</main>
+
+  <script>
+        $(function () {
+            var token = window.localStorage.getItem('dnblog_token');
+            var username = window.localStorage.getItem('dnblog_user');
+            var post_data = {'token':token,'username':username};
+            $.ajax({
+                    type:"post",
+                    contentType:"application/json",
+                    dataType:"json",
+                    url:"/login/validation_state",
+                    data:JSON.stringify(post_data),
+                    beforeSend: function(request) {request.setRequestHeader("Authorization", token)},
+                    success:function (result) {
+                        if(result.code!=200){
+                            alert(result.error);
+                            window.location = '/login/index'
+                        }
+                    }
+            })
+        })
+    </script>
+
+<script>
+    $(function () {
+
+        $("#btn").click(function () {
+            data_post = {"word": $('#in').val()};
+            $.ajax({
+                url: '/dict/check_word_server',
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify(data_post),
+                contentType: 'json',
+                success: function (res) {
+                    $('#out').val(res.re)
+                },
+            })
+        })
+    })
+</script>
+</body>
+</html>

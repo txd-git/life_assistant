@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>吐槽论坛</title>
+    <script src="/static/js/jquery-2.2.4.min.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/article_list.css">
+</head>
+    <script>
+        $(function () {
+            var token = window.localStorage.getItem('dnblog_token');
+            var username = window.localStorage.getItem('dnblog_user');
+            var post_data = {'token':token,'username':username};
+            $.ajax({
+                    type:"post",
+                    contentType:"application/json",
+                    dataType:"json",
+                    url:"/login/validation_state",
+                    data:JSON.stringify(post_data),
+                    beforeSend: function(request) {request.setRequestHeader("Authorization", token)},
+                    success:function (result) {
+                        if(result.code!=200){
+                            alert(result.error);
+                            window.location = '/login/index'
+                        }
+                    }
+            })
+        })
+    </script>
+<body>
+    <header class="header_area">
+        <div class="container">
+            <div class="row">
+                <!-- Logo Area Start -->
+                <div class="col-12">
+                    <div class="logo_area text-center">
+                        <a href="/article/artlist" class="yummy-logo">论坛吐槽</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg">
+                        <!-- Menu Area Start -->
+                        <div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
+                            <ul class="navbar-nav" id="yummy-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" id="orderby" href="/login/home_page">网站首页</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/tq/index">智能天气<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/qiu/index">双色球<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/speech/index">语音识别<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/note/all_notes">生活笔记<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/dict/check_word">单次查询<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/article/artlist">吐槽首页<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="fa">发帖</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a  class="nav-link" id="orderby">最热</a>
+                                </li>
+                              
+   </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
+          <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center fadeInUp ftco-animated">
+          </div>
+        </div>
+      </div>
+
+    </header>
+    <main>
+    <div class="col-12">
+        <div class="list-blog single-post d-sm-flex wow fadeInUpBig animated" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s;">
+            <!-- Post Thumb -->
+            <div class="post-thumb">
+                <img style="width:533px;height:313px" src="/static/images/bixin01.jpg" alt="">
+            </div>
+            <!-- Post Content -->
+            <div class="post-content">
+                <div class="post-meta d-flex">
+                    <div class="post-author-date-area d-flex">
+                        <!-- Post Author -->
+                        <div class="post-author">
+                            <a href="/login/home_page">智能生活小助手</a>
+                        </div>
+                        <!-- Post Date -->
+                        <div class="post-date">
+                            <a href="">始创于2020年9月22日</a>
+                        </div>
+                    </div>
+                </div>
+                <p>在这里您发表对我们的看法，我们一定会积极改正</p>
+                <div>浏览量：靠您啦</div>
+            </div>
+        </div>
+    </div>
+
+<div id="text">
+        <div class="col-12">
+            {% for b in page %}
+            <div class="list-blog single-post d-sm-flex wow fadeInUpBig animated" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s;">
+            <div class="post-content">
+                <div gclass="post-meta d-flex">
+                    <div class="post-author-date-area d-flex">
+<!--                        <div class="post-author">-->
+<!--                            <a href=""></a>-->
+<!--                        </div>-->
+                    </div>
+                    <div class="post-comment-share-area d-flex"><!-- Post Share -->
+                        <div class="post-share">
+                            <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <a href="">
+                    标题：<h4 class="post-headline">{{ b.title }}</h4>
+                </a>
+                <p>简介：<div class="content" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width:120px" >{{ b.body }}</div></p>
+                        <div>浏览量：{{ b.total_views }}
+<!--        <button class="btn" onclick="read({{ b.id }})">阅读本文</button>-->
+                        </div>
+
+                <a class="read-more" onclick="read({{ b.id }})">点击这里，进入详情</a>
+
+<!--        <h4>{{ b.title }}</h4>-->
+
+<!--        <div class="content" >{{ b.body }}</div>-->
+<!--        <img src='/media/{{ b.img }}'>-->
+
+<!--        <div>浏览量：{{ b.total_views }}-->
+
+            </div>
+            </div>
+                {% endfor %}
+            </div>
+        </div>
+
+{#page#}
+<div class="pagination">
+    {% if page.has_previous %}
+        <a href="/article/artlist?page={{ page.previous_page_number }}"> &laquo;</a>
+    {% else %}
+        &raquo;
+    {% endif %}
+
+    {% for p in paginator.page_range %}
+        {% if p == page.number %}
+            {{ p }}
+        {% else %}
+            <a href="/article/artlist?page={{ p }}">{{ p }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page.has_next %}
+        <a href="/article/artlist?page={{ page.next_page_number }}">&raquo;</a>
+    {% else %}
+        &laquo;
+    {% endif %}
+</div>
+</main>
+<script>
+    $('#fa').click(function () {
+        var token = window.localStorage.getItem('dnblog_token');
+        var username = window.localStorage.getItem('dnblog_user');
+        $.ajax({
+            url: "/article/log_dec",
+            type: 'GET',
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", token);
+            },
+            success: function (res) {
+                if (res.code == 200) {
+                    window.location.href = '/article/create/'+username
+                } else {
+                    var r = confirm("未登录");
+                    if (r == true) {
+                        window.location.href = '/user/login'
+                    }
+                }
+            }
+        })
+    })
+</script>
+
+
+<script>
+    function read(id) {
+        window.location.href = '/article/article_detail/' + id
+    }
+
+    $('#orderby').click(function () {
+        $.ajax({
+            url: "/article/total_views",
+            type: 'GET',
+            success: function (res) {
+                $('#text').html('');
+                $.each(res, function (i, obj) {
+                    html = `<div>
+                    <h4 class="card-header">${obj.title}</h4>
+                    <div class="content" >${obj.body}</div>
+                      <div><img src="/media/${obj.img}"></div>
+                        <button class="btn" onclick="read(${obj.id})">阅读本文</button>
+                    <span>
+                        <small class="col" style="color: gray;">浏览：${obj.total_views}</small>
+                    </span>
+                    </div>`;
+                    $('#text').append(html)
+                })
+
+            }
+        })
+    })
+</script>
+    <script>
+       function logout() {
+           window.localStorage.removeItem('dnblog_token');
+           window.localStorage.removeItem('dnblog_user');
+           alert('您已退出')
+       }
+    </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>更新笔记</title>
+    <script src="/static/js/jquery-1.11.3.js"></script>
+    <style>
+        h1,h2,h3,p,body,ul,li{
+            padding: 0;
+            margin: 0;
+        }
+        ul{
+            list-style: none;/*去掉列表默认样式 小黑点*/
+        }
+        a{
+            text-decoration: none;/*去下划线*/
+        }
+        img{
+            display: block;
+        }
+        body{
+            font: 16px 'Courier New';
+            background-image: url("/static/imgs/tuchong09.jpg");
+            background-size: 100% 100%;
+        }
+        header{
+            width: 100%;
+            background-image: url("/static/imgs/xy.jpg");
+            background-size: 100% 100%;
+            position: fixed;
+            top: 0;
+            z-index: 999;
+        }
+        nav{
+            width: 1140px;
+            height: 80px;
+            margin: 0 auto;
+            line-height: 80px;
+        }
+        .logo{
+            font-size: 26px;
+            float: left;
+        }
+        .logo a{
+            color: #c1edf2;
+        }
+
+        nav>ul{
+            float: left;
+            margin-left: 80px;
+        }
+        nav>ul>li{
+            float: left;
+            padding: 0 40px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        nav>ul>li>a{
+            color:#e5f2f2;
+        }
+        nav>ul>li>a:hover{
+            color:gold;
+        }
+
+        /* *************footer****************** */
+        footer{
+            width: 100%;
+            background-color: #555;
+            padding: 20px 0;
+            color: #a5a4a4;
+            text-align: center;
+            margin-top: 185px;
+        }
+        footer a{
+            color: #a5a4a4;
+        }
+        footer a:hover{
+            color: #c1edf2;
+        }
+        /*******************主体内容*****************/
+        main{
+            width: 1140px;
+            height: 500px;
+            margin: 100px auto 0;
+
+        }
+
+        p{
+            text-align: center;
+        }
+        textarea{
+            width: 700px;
+            height: 500px;
+            border: 5px double black;
+            margin-top: 50px;
+            background-image: url("/static/imgs/timg.jpeg");
+            background-size: 700px 500px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <!-- 导航栏 -->
+    <nav>
+        <!--logo-->
+        <h1 class="logo">
+            <a href="/note/all_notes">随身笔记</a>
+        </h1>
+        <!--导航菜单-->
+        <ul>
+            <li><a href="/login/home_page">助手首页</a></li>
+            <li><a href="/tq/index">智能天气</a></li>
+            <li><a href="/qiu/index">双色球</a></li>
+            <li><a href="/dict/check_word">单次查询</a></li>
+            <li><a href="/speech/index">语音识别</a></li>
+            <li><a href="/note/page_add_note">创建笔记</a></li>
+        </ul>
+    </nav>
+</header>
+<main id="main">
+
+</main>
+<script>
+    $(
+        function () {
+            var url = document.location.toString();
+            var arrUrl = url.split("//");
+            var t_id = arrUrl[1].split('/')[3];
+            $.ajax({
+                type:'get',
+                contentType:'application/json',
+                datatype:'json',
+                url:'/note/one_note/'+t_id,
+                success:function (res) {
+                    var html = '';
+                    html += '<p id="title">';
+                    html += '标题：<input type="text" name="title" value="';
+                    html += res.title;
+                    html += '"> <button id="btn">保存</button>';
+                    html += '</p><p>';
+                    html += '<textarea name="content" cols="30" rows="10">';
+                    html += res.content;
+                    html += '</textarea></p>';
+                    $('#main').html(html);
+                    $('#btn').click(function () {
+                        var title = $("input[name='title']").val();
+                    var content = $('textarea').val();
+                    var post_data = {'title':title,'content':content,'id':t_id};
+                    console.log(post_data);
+                    $.ajax({
+                        type:"post",
+                        contentType:"application/json",
+                        dataType:"json",
+                        url:"/note/update_note",
+                        data:JSON.stringify(post_data),
+                        success:function (result) {
+                            if(result.code===200){
+                                alert('修改成功');
+                                window.location = '/note/all_notes'
+                            }
+                            else {alert(result.error)}
+                        }
+                        })
+                    })
+                }
+            })
+        }
+    )
+
+</script>
+
+<footer>
+    <div>
+        <a href="/login/home_page">---Life_assiatant---</a>
+        <a href="/note/page_add_note">--个人随笔-添加笔记--</a>
+        <a href="#">--备--智能助手--398号---1</a>
+    </div>
+</footer>
+
+</body>
+</html>

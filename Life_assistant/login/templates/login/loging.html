@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录界面</title>
+    <link href="/static/css/loging_css.css" type="text/css" rel="stylesheet">
+</head>
+<script src="/static/js/jquery-1.11.3.js"></script>
+<body>
+	<div>
+        <input type="text"  id="username" placeholder="这里输入用户名" >
+        <input type="password" class="form-control" id="password" placeholder="这里输入密码">
+        <a href="/register/index" id="a1">注册号码</a>
+        <a href="/forgot_password/index" id="a2">忘记密码</a>
+		<button onclick="login()" id="btn">登录</button>
+	</div>
+</body>
+  <script>
+    function login() {
+		var name = $('#username').val();
+		var password = $('#password').val();
+		var post_data = {"username":name,"password":password};
+		$.ajax({
+			url:'/login/loging',
+			type:"POST",
+			dataType:"json",
+			data:JSON.stringify(post_data),
+			contentType:'application/json',
+			success:function (res) {
+				if(res.code == 200){
+					alert('登陆成功');
+					window.localStorage.setItem("dnblog_token",res.data.token);
+					window.localStorage.setItem("dnblog_user",res.username);
+					window.location = '/login/home_page'
+				}else{
+					alert(res.error)
+				}
+			}
+		})
+	}</script>
+</html>

@@ -1,0 +1,110 @@
+body{
+    width: 1400px;
+    height: 700px;
+    position: relative;
+    background-image: url(/static/imgs/tuchong05.jpg);
+    background-size: 1683px 893px;
+}
+div{
+    position: absolute;
+    width: 450px;
+    height:537px;
+    background-color: darkgray;
+    top: 160px;
+    right: 360px;
+    opacity: 0.6;
+}
+#nickname{
+	position: absolute;
+    width: 420px;
+    height: 45px;
+    font-size: 30px;
+    top: 90px;
+    right: 13px;
+    border: 2px solid #fff;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+}
+#username{
+    position: absolute;
+    width: 420px;
+    height: 45px;
+    font-size: 30px;
+    top: 26px;
+    right: 13px;
+    border: 2px solid #fff;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+}
+#password_1{
+    position: absolute;
+    width: 420px;
+    height: 45px;
+    font-size: 30px;
+    top: 152px;
+    right:13px;
+    color: black;
+    border: 2px solid #fff;
+    background-color: #fff;
+    text-align: center;
+}
+#password_2{
+    position: absolute;
+    width: 420px;
+    height: 45px;
+    font-size: 30px;
+    top: 215px;
+    right: 13px;
+    color: black;
+    border: 2px solid #fff;
+    background-color: #fff;
+    text-align: center;
+}
+#email{
+    position: absolute;
+    width: 420px;
+    height: 45px;
+    font-size: 30px;
+    top: 278px;
+    right: 13px;
+    color: black;
+    border: 2px solid #fff;
+    background-color: #fff;
+    text-align: center;
+}
+#sms{
+    position: absolute;
+    width: 425px;
+    height: 45px;
+    font-size: 27px;
+    top: 341px;
+    right: 13px;
+    color: black;
+    border: 2px solid #fff;
+    background-color: #fff;
+}
+#codede{
+    position: absolute;
+    width: 420px;
+    height: 45px;
+    font-size: 30px;
+    top: 398px;
+    right: 13px;
+    color: black;
+    border: 2px solid #fff;
+    background-color: #fff;
+    text-align: center;
+}
+#btn{
+    position: absolute;
+    width: 425px;
+    height: 45px;
+    font-size: 27px;
+    top: 461px;
+    right: 13px;
+    color: black;
+    border: 2px solid #fff;
+    background-color: #fff;
+}

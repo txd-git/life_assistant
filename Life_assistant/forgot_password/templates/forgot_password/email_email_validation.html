@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>找回密码</title>
+</head>
+<link href="/static/css/forgot_password_css.css" type="text/css" rel="stylesheet">
+<script src="/static/js/jquery-1.11.3.js"></script>
+<body>
+    <div>
+    <input type="text" id="username" placeholder="请输入用户名">
+    <input type="password" id="password_1" placeholder="请输入新密码">
+    <input type="password"  id="password_2" placeholder="确认新密码">
+    <input type="text" id="email" placeholder="这里输入账号绑定邮箱 " >
+    <button type="submit" onclick="send_email()" id="send">邮箱获取验证码 60秒失效</button>
+    <input type="password"  id="validation"  placeholder="请输入验证码">
+    <button  onclick="reset()" id="btn">重置密码</button>
+    </div>
+</body>
+<script>
+function reset() {
+        var username = $('#username').val();
+        var password_1 = $('#password_1').val();
+        var password_2 = $('#password_2').val();
+        var email = $('#email').val();
+        var validation = $('#validation').val();
+        var post_data = {'password_1':password_1,
+        'password_2':password_2,'email':email,
+        'validation':validation,'username':username};
+        $.ajax({
+        url: '/forgot_password/email_validation',
+        type:'POST',
+        data: JSON.stringify(post_data),
+        contentType: 'appcliation/json',
+        dataType:'json',
+        success:function(res){
+                    if(res.code==='200'){
+                        alert('重置密码成功,即将登录主页面');
+                        window.localStorage.setItem("dnblog_token",res.data.token);
+                        window.localStorage.setItem("dnblog_user",res.username);
+                        window.location = '/login/index'
+                    }else {
+                        alert(res.error)
+                    }
+        }
+        })
+    }
+    function send_email() {
+    var email = $('#email').val();
+    var post_data = {"email":email};
+    $.ajax({
+        url: '/forgot_password/send_validation',
+        type:'post',
+        data: JSON.stringify(post_data),
+        contentType: 'appcliation/json',
+        dataType:'json',
+        success:function (res) {
+            if(res.code == 200){
+                alert('邮件已经发送到你的邮箱,请查收!,如果您用的QQ邮箱，请到垃圾箱查看验证码')
+            }
+        }
+    })
+}</script>
+</html>

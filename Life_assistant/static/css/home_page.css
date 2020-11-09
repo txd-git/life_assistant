@@ -1,0 +1,98 @@
+body{
+        width: 1400px;
+    height: 600px;
+    position: relative;
+    background-image: url(/static/imgs/timg000.jpeg);
+    background-size: 1400px 900px;
+    }
+p{
+    position: absolute;
+    top: 65px;
+    left: 68px;
+    width: 700px;
+    height: 75px;
+    background-image: url(/static/imgs/xy.jpg);
+    background-size: 700px 75px;
+    border-radius: 15px 10px;
+    font-size: 42px;
+    text-align: center;
+    line-height: 70px;
+    font-weight: bold;
+   font-style: oblique;
+   color: lightblue;
+}
+#btn1{
+    position: absolute;
+    left: 60px;
+    width: 340px;
+    height: 70px;
+    color:gold;
+    font-weight: bold;
+    font-size: 40px;
+    top: 300px;
+    background-color: gray;
+}
+#btn2{
+    top: 300px;
+    position: absolute;
+    left: 453px;
+    font-weight: bold;
+    width: 340px;
+    height: 70px;
+    color:gold;
+    font-size: 40px;
+    background-color: gray;
+    }
+#btn3{
+    top: 480px;
+    position: absolute;
+    left: 60px;
+    width: 340px;
+    height: 70px;
+     color:gold;
+    font-weight: bold;
+    font-size: 40px;
+    background-color: gray;
+    }
+#btn4{
+    top: 480px;
+    position: absolute;
+    left: 453px;
+    width: 340px;
+    height: 70px;
+    color:gold;
+    font-weight: bold;
+    font-size: 40px;
+    background-color: gray;
+    }
+#btn5{
+    top: 660px;
+    position: absolute;
+    left: 60px;
+    width: 340px;
+    height: 70px;
+    color:gold;
+    font-weight: bold;
+    font-size: 40px;
+    background-color: gray;
+    }
+#btn6{
+    top: 660px;
+    position: absolute;
+    left: 453px;
+    width: 340px;
+    height: 70px;
+    color:gold;
+    font-weight: bold;
+    font-size: 40px;
+    background-color: gray;
+    }
+#d1{
+    position: absolute;
+    top: 16px;
+    right: -200px;
+    width: 750px;
+    height: 850px;
+    background-image: url(/static/imgs/苍天呐.gif);
+    background-size: 750px 850px;
+}

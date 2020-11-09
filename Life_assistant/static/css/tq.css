@@ -1,0 +1,150 @@
+h1,h2,h3,p,body,ul,li{
+    padding: 0;
+    margin: 0;
+}
+ul{
+    list-style: none;/*去掉列表默认样式 小黑点*/
+}
+a{
+    text-decoration: none;/*去下划线*/
+}
+header{
+    width: 100%;
+    background-image: url("/static/imgs/xy.jpg");
+    background-size: 100% 100%;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+}
+nav{
+    width: 1340px;
+    height: 80px;
+    margin: 0 auto;
+    line-height: 80px;
+}
+.logo{
+    font-size: 30px;
+    float: left;
+    margin-left: 55px;
+}
+.logo a{
+    color: #c1edf2;
+}
+nav>ul{
+    float: left;
+    margin-left: 100px;
+}
+nav>ul>li{
+    float: left;
+    padding: 0 30px;
+    font-size: 20px;
+    font-weight: bold;
+}
+nav>ul>li>a{
+    color:#e5f2f2;
+    font-weight: bold;
+}
+nav>ul>li>a:hover{
+    color: gold;
+}
+.mo{
+    width: 1855px;
+    height: 910px;
+    position: relative;
+    background-image: url(/static/imgs/大背景.jpg);
+    background-size: 1855px 910px;
+}
+#text{
+    position: absolute;
+    top: 130px;
+    right: 650px;
+    background-color: #e5f2f2;
+    width: 300px;
+    height: 60px;
+    color: darkolivegreen;
+    z-index: 61;
+    line-height: 60px;
+    font-size: 30px;
+}
+#btn{
+    position: absolute;
+    top: 130px;
+    right: 350px;
+    background-color: darkgrey;
+    color: gold;
+    width: 137px;
+    height: 60px;
+    border-radius: 10px 10px;
+    text-align: center;
+    line-height: 60px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.dv1{
+    position: absolute;
+    bottom: 75px;
+    right: 270px;
+    border-radius: 15px 15px;
+    width: 650px;
+    height: 71px;
+    font-size: 15px;
+    font-weight: bold;
+    color: darkgreen;
+    text-align: center;
+    line-height: 70px;
+    z-index: 61;
+}
+.dv5{
+    position: absolute;
+    bottom: 75px;
+    right: 270px;
+    border-radius: 15px 15px;
+    width: 770px;
+    height: 80px;
+    background-image: url("/static/imgs/hugg.jpg");
+    background-size: 730px 80px;
+    z-index: 61;
+}
+#dv2{
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 700px;
+    height: 880px;
+    background-image: url("/static/imgs/huji.gif");
+    background-size: 700px 880px;
+}
+#dv4{
+    position: absolute;
+    left: 850px;
+    width: 1000px;
+    height: 900px;
+}
+.t0{
+    position: absolute;
+    right:  295px;
+    top: 245px;
+    width: 720px;
+    height: 470px;
+   background-image: url("/static/imgs/hubb.jpg");
+    background-size: 720px 470px;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+}
+.dv3{
+    position: absolute;
+    top: 670px;
+    right: 995px;
+    width: 150px;
+    height: 120px;
+    background-image: url("/static/imgs/hujg.png");
+    background-size: 150px 120px;
+}
+.t1{
+    height: 40px;
+    width: 700px;
+}
+#bbs>a{
+    color: gold;
+}

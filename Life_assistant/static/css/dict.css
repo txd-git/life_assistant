@@ -1,0 +1,158 @@
+/* 页面样式文件 */
+
+/* 初始化页面元素样式 */
+h1,h2,h3,p,body,ul,li,main,header,div{
+    padding:0;
+    margin:0;
+}
+ul{
+    /* 去掉列表默认样式 小黑点 */
+    list-style:none ;
+}
+a{
+    text-decoration:none;
+    /* 去下划线 */
+}
+img{
+    display:block;
+}
+/* ****************header***************** */
+header{
+    width: 100%;
+    /* height: 80px; */
+    background-image: url("/static/imgs/xy.jpg");
+    background-size: 100% 100%;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+}
+nav{
+    /* 控制内容位置 */
+     width: 1340px;
+    height: 80px;
+    margin: 0 auto;
+    line-height: 80px;
+}
+/* logo  个人博客字体 */
+/* 字体大小26px，字体颜色 #cledf2  能够和后面元素在同一行显示*/
+
+.logo{
+    font-size: 30px;
+    float: left;
+    margin-left: 55px;
+}
+.logo a{
+    color: #c1edf2;
+}
+
+/* 导航菜单 */
+/* li水平排列  字体颜色 #e5f2f2 鼠标移入时字体变成白色 */
+/* 调整导航菜单与logo的距离  调整li之间的距离 */
+nav>ul{
+   float: left;
+    margin-left: 100px;
+}
+nav>ul>li{
+   float: left;
+    padding: 0 30px;
+    font-size: 20px;
+    font-weight: bold;
+
+}
+nav>ul>li>a{
+  color:#e5f2f2;
+     font-weight: bold;
+}
+nav>ul>li>a:hover{
+        color:gold;
+}
+#word{
+
+    color:gold;
+}
+
+main{
+    width:100%;
+    height:860px;
+    background-color:transparent;
+    background-image:  url('/static/imgs/tuchong09.jpg');
+    background-size: 100% 860px;
+
+}
+.body{
+    float:left;
+    margin:0 0 0 250px;
+    width:1300px;
+    height:500px;
+
+}
+.input{
+    float: left;
+    width:620px;
+    height:200px;
+    /*margin:10px;*/
+    /*margin-right:1px;*/
+    margin-left: 300px;
+}
+.output{
+    float:left;
+    width:620px;
+    height:200px;
+    /*margin:10px;*/
+    margin-left:-90px;
+}
+.input:hover{
+
+        border-color:blue;;
+        transition: all 0.5s;
+}
+
+#in{
+    width:85%;
+    height:240px;
+    background-color: #ffffff;
+    font-size: 30px;
+    color:black;
+}
+#out{
+   width:85%;
+    height:240px;
+    background-color: beieg;
+    font-size:30px;
+}
+.b{
+    float:right;
+    margin-right:100px;
+    margin-top:-95px;
+    color:red;
+
+}
+#btn{
+    float:right;
+    width:133px;
+    height:56px;
+    border-radius: 30%;
+    background-color:black;
+    font-size: 27px;
+    color:gold;
+    font-weight:bold;
+
+}
+#tip{
+    float:left;
+    width:800px;
+    height:100px;
+    text-align: center;
+    line-height: 100px;
+    margin-top:170px;
+    margin-bottom:80px;
+    margin-left:440px;
+    border:solid gray 1px;
+    border-radius:40px;
+    font-weight:bold;
+    color: black;
+    font-size: 40px;
+    background-image: url("/static/imgs/oo.jpg");
+    background-size: 800px 100px;
+}
+

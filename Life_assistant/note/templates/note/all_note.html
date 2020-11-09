@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>笔记列表</title>
+    <!--引入外部css文件-->
+    <link href="/static/css/all_note.css" rel="stylesheet" type="text/css">
+    <!-- 引入外部js文件 -->
+    <script src="/static/js/jquery.min.js"></script>
+    <!-- 轮播图数据 -->
+    <script src="/static/js/fader.data.js"></script>
+    <!-- jQuery提供的轮播插件 -->
+    <script src="/static/js/jquery.easyfader.min.js"></script>
+    <!-- 自定义js文件 -->
+    <script src="/static/js/all_note.js"></script>
+    <!-- 补充页面样式，完成轮播图 -->
+    <link rel="stylesheet" href="/static/css/easyfader.css">
+</head>
+<body>
+
+<header>
+    <!-- 导航栏 -->
+    <nav>
+        <!--logo-->
+        <h1 class="logo">
+            <a href="#">随身笔记</a>
+        </h1>
+        <!--导航菜单-->
+        <ul>
+            <li><a href="/login/home_page">网站首页</a></li>
+            <li><a href="/tq/index">智能天气</a></li>
+            <li><a href="/qiu/index">双色球</a></li>
+             <li><a href="/speech/index">语音识别</a></li>
+            <li><a href="/note/all_notes">生活笔记</a>
+            <li><a href="/note/page_add_note">创建笔记</a></li>
+             <li><a href="/dict/check_word">单次查询</a></li>
+            <li><a href="/article/artlist">吐槽论坛</a></li>
+        </ul>
+    </nav>
+</header>
+<span id="po_date"></span>
+<span id="po_time"></span>
+<main>
+    <div>
+        <!-- 左侧 轮播图 -->
+        <div class="banner">
+            <!-- 轮播图父元素 -->
+            <ul class="fader">
+                <!-- 使用JS生成轮播图的内容 -->
+                <li class="fader_controls">
+                    <!-- 左右箭头 -->
+                    <div class="page prev" data-target="prev">&lt;</div>
+                    <div class="page next" data-target="next">&gt;</div>
+                    <!-- 轮播图页标 -->
+                    <ul class="pager_list">
+                        <!-- <li></li> -->
+                    </ul>
+                </li>
+            </ul>
+        </div>
+       <!-- 右侧 侧边图片 -->
+        <ul class="toppic">
+            <li>
+                <a href="#">
+                    <i>
+                        <img src="/static/imgs/lnln.jpg" alt="" id="po_date">
+                    </i>
+                    <div>每天都是开心的一天</div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i >
+                        <img src="/static/imgs/lolo.jpeg" alt="" id="po_time">
+                    </i>
+                    <div>时间总会奖励珍惜它的人</div>
+
+                </a>
+            </li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <!-- 博客列表 -->
+    <div class="blogsbox">
+    </div>
+</main>
+
+<footer>
+    <div>
+        <a href="/login/home_page">---Life_assiatant---</a>
+        <a href="/note/page_add_note">--个人随笔-添加笔记--</a>
+        <a href="#">--备--智能助手--398号---1</a>
+    </div>
+</footer>
+<script>
+        $(function () {
+            var token = window.localStorage.getItem('dnblog_token');
+            var username = window.localStorage.getItem('dnblog_user');
+            var post_data = {'token':token,'username':username};
+            $.ajax({
+                    type:"post",
+                    contentType:"application/json",
+                    dataType:"json",
+                    url:"/login/validation_state",
+                    data:JSON.stringify(post_data),
+                    beforeSend: function(request) 	{request.setRequestHeader("Authorization", token)},
+                    success:function (result) {
+                        if(result.code!=200){
+                            alert(result.error);
+                            window.location = '/login/index'
+                        }
+                    }
+            })
+        })
+    </script>
+
+<script>
+$(
+    function () {
+        var username = window.localStorage.getItem('dnblog_user');
+        var post_data = {'username':username};
+        $.ajax({
+            type:"post",
+            contentType:"application/json",
+            dataType:"json",
+            url:"/note/all_note",
+            data:JSON.stringify(post_data),
+            success:function (res) {
+                if(res.code === 200){
+                    data_lists = res.data;
+                    var html = '';
+                    var html_all = '';
+                    $.each(data_lists,function (i, data_one) {
+                        html +='<div class="blogs"><h3 class="blogtitle">';
+                        html +='<a href="/note/page_update_note/';
+                        html +=data_one.id+'">';
+                        html +=data_one.title+'</a></h3>';
+                        html +='<p class="blogtext">';
+                        html +=data_one.content;
+                        html +='</p><ul><li class="timer"><a href="#">创建时间：';
+                        html +=data_one.created_time;
+                        html +='</a></li><li class="timer"><a href="#">更新时间：';
+                        html +=data_one.updated_time;
+                        html +='</a></li><li class="lmname"><a href="/note/delete_note/';
+                        html +=data_one.id;
+                        html +='">删除</a></li></ul></div>';
+                        html += html_all;
+                        html_all = html;
+                        html = '';
+                        $(".blogsbox").html(html_all)
+                    })
+                }else {
+                    alert(res.code)
+                }
+            }
+        })
+
+    }
+)
+</script>
+
+{#<script>#}
+{#    $(function () {#}
+{#        var data = '';#}
+{#        $.ajax({#}
+{#            type:"get",#}
+{#            contentType:"application/json",#}
+{#            dataType:"json",#}
+{#            url:"/note/send_data",#}
+{#            success:function (res) {#}
+{#                data+=res.data;#}
+{#                $('#po_date').val(data);#}
+{#            }#}
+{##}
+{#    })#}
+{#    })#}
+{##}
+{#</script>#}
+{##}
+{#<script>#}
+{#    function time() {#}
+{#        var date = new Date();#}
+{#        var hour = date.getHours();#}
+{#        var minutes = date.getMinutes();#}
+{#        var seconds = date.getSeconds();#}
+{#        var str =  hour + "时" + minutes + "分" + seconds + "秒";#}
+{#        console.log(str);#}
+{#        $('#po_time').val(str);#}
+{##}
+{#    }#}
+{#    setInterval(time,1000);#}
+{#</script>#}
+</body>
+</html>

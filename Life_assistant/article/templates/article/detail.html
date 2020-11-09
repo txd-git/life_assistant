@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>阅读详情</title>
+    <script src="/static/js/jquery-2.2.4.min.js"></script>
+    <script src="/static/js/layer.js"></script>
+    <script src="/static/js/wangEditor.js"></script>
+    <script src="/static/js/xcConfirm.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/detail.css">
+
+</head>
+    <script>
+        $(function () {
+            var token = window.localStorage.getItem('dnblog_token');
+            var username = window.localStorage.getItem('dnblog_user');
+            var post_data = {'token':token,'username':username};
+            $.ajax({
+                    type:"post",
+                    contentType:"application/json",
+                    dataType:"json",
+                    url:"/login/validation_state",
+                    data:JSON.stringify(post_data),
+                    beforeSend: function(request) {request.setRequestHeader("Authorization", token)},
+                    success:function (result) {
+                        if(result.code!=200){
+                            alert(result.error);
+                            window.location = '/login/index'
+                        }
+                    }
+            })
+        })
+    </script>
+<body>
+    <header class="header_area">
+        <div class="container">
+            <div class="row">
+                <!-- Logo Area Start -->
+                <div class="col-12">
+                    <div class="logo_area text-center">
+                        <a href="/article/artlist" class="yummy-logo">论坛分享</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg">
+                        <!-- Menu Area Start -->
+                        <div class="collapse navbar-collapse justify-content-center" id="yummyfood-nav">
+                            <ul class="navbar-nav" id="yummy-nav">
+                                 <li class="nav-item active">
+                                    <a class="nav-link" href="/login/home_page">网站首页<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/article/artlist">论坛首页<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a  class="nav-link" id="orderby" onclick="history.back()">返回上页</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a  class="nav-link" onclick="update({{ data.id }})">编辑</a>
+                                </li>
+
+
+                                <li class="nav-item">
+                                    <a  class="nav-link" onclick="confirm_delete({{ data.id }})">删除</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="fa">发帖</a>
+                                </li>
+
+                           </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
+          <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center fadeInUp ftco-animated">
+          </div>
+        </div>
+      </div>
+    </div>
+    </header>
+
+{#帖子内容#}
+    <main>
+<div class="container">
+    <div class="row">
+        <!-- 标题及作者 -->
+        <h1>{{ data.title }}</h1>
+        <div id="information">
+            作者：{{ data.author.username }}
+            <div>浏览：{{ data.total_views }}</div>
+        </div>
+        <p class="col-12">{{ data.body }}</p>
+        <p style=position:absolute;margin-left:400px;margin-top:10px;
+}>{{ data.updated }}</p>
+        <p style=position:absolute;margin-left:400px;margin-top:50px;>目前评论数量：{{ result.p_count }}</p>
+    </div>
+
+    {% for msg in result.msg %}
+        <div class="news_con">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;评论：{{ msg.content }}
+            <button class="replyComment" onclick="re( {{ msg.id }},{{ data.id }})">回复</button>
+            <p>{{ msg.created }}</p>
+            {% if msg.reply %}
+                {% for r in msg.reply %}
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;回复：{{ r.content }}
+                    </div>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ r.created_time }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
+
+</div>
+
+<div>
+    <h5>在这添加你的评论</h5>
+    <dir style="width: 900px" id="editor"></dir>
+    <b>
+        <input id="id_article" name="article" type="hidden" value="1">
+        <input name="button" type="button" id="button" tabindex="5" value="提交" onclick="comment({{ data.id }})">
+    </b>
+</div>
+</main>
+
+<script>
+    function confirm_delete(id) {
+        layer.open({
+            title: "确认删除",
+            content: "确认删除这篇文章吗？",
+            yes: function (index, layero) {
+                var token = window.localStorage.getItem('dnblog_token');
+                var username = window.localStorage.getItem('dnblog_user');
+                $.ajax({
+                    url: "/article/article_delete/" + id,
+                    type: "post",
+                    contentType: "application/json",
+                    dataType: "json",
+                    beforeSend: function (request) {
+                        request.setRequestHeader("Authorization", token);
+                    },
+                    success: function (res) {
+                        if (res.code == 200) {
+                            alert("删除成功");
+                            window.location.href = "/article/artlist"
+                        } else {
+                            alert("您无权删除");
+                            window.location.reload()
+                        }
+
+                    },
+                })
+            }
+        })
+    }
+</script>
+<script>
+    function update(id) {
+        var token = window.localStorage.getItem('dnblog_token');
+        var username = window.localStorage.getItem('dnblog_user');
+        $.ajax({
+            url: "/article/edit/" + id,
+            type: "post",
+            contentType: "application/json",
+            dataType: "json",
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", token);
+            },
+            success: function (res) {
+                if (res.code == 200) {
+                    window.location.href = "/article/update/" + res.id
+                } else {
+                    alert("您无权编辑")
+                }
+            }
+        })
+    }
+
+</script>
+<script>
+    $('#fa').click(function () {
+        var token = window.localStorage.getItem('dnblog_token');
+        var username = window.localStorage.getItem('dnblog_user');
+        $.ajax({
+            url: "/article/log_dec",
+            type: 'GET',
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", token);
+            },
+            success: function (res) {
+                if (res.code == 200) {
+                    window.location.href = '/article/create/' + username
+                } else {
+                    var r = confirm("未登录");
+                    if (r == true) {
+                        window.location.href = '/user/login'
+                    }
+                }
+            }
+        })
+    })
+</script>
+<script>
+    //评论
+    var E = window.wangEditor;
+    editor = new E('#editor');
+    editor.create();
+
+    //art_id 指 文章的id，评论根据文章id定位
+    function comment(art_id) {
+        //alert(art_id);
+        var content = editor.txt.text();
+
+        var token = window.localStorage.getItem('dnblog_token');
+        var username = window.localStorage.getItem('dnblog_user');
+        if(content) {
+            var post_data = {'content': content};
+            $.ajax({
+                type: "post",
+                contentType: "application/json",
+                dataType: "json",
+                url: "/message/" + art_id,
+                data: JSON.stringify(post_data),
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", token);
+                },
+                success: function (result) {
+
+                    if (200 == result.code) {
+                        alert("发布成功")
+                        window.location.reload()
+                    } else {
+                        alert(result.error)
+                        window.location.href = '/user/login'
+                    }
+                }
+            })
+        }
+    }
+
+</script>
+<script>
+    //回复
+    function re(m_id, art_id) {
+        //art_id 指文章的id，评论根据文章id定位
+        //m_id 指评论的id，回复根据评论id定位
+        alert(m_id);
+        var token = window.localStorage.getItem('dnblog_token');
+        var txt = "请输入回复：";
+        window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.input, {
+            onOk: function (reply) {
+                if (reply) {
+                    var post_data = {'content': reply, 'm_id': m_id};
+                    alert(reply);
+                    $.ajax({
+                        type: "post",
+                        contentType: "application/json",
+                        dataType: "json",
+                        url: "/message/" + art_id,
+                        data: JSON.stringify(post_data),
+                        beforeSend: function (request) {
+                            request.setRequestHeader("Authorization", token);
+                        },
+                        success: function (result) {
+
+                            if (200 == result.code) {
+                                alert("发布成功");
+                                window.location.reload()
+                            } else {
+                                alert(result.error);
+                                window.location.href = '/user/login'
+                            }
+                        }
+                    })
+
+                }
+            }
+        })
+    }
+
+    //})
+    //}
+</script>
+
+    <script>
+       function logout() {
+           window.localStorage.removeItem('dnblog_token');
+           window.localStorage.removeItem('dnblog_user');
+           alert('您已退出')
+       }
+    </script>
+
+</body>
+</html>

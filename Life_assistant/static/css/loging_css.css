@@ -1,0 +1,68 @@
+body{
+    width: 1400px;
+    height: 700px;
+    position: relative;
+    background-image: url(/static/imgs/tuchong05.jpg);
+    background-size: 1683px 893px;
+}
+div{
+    position: absolute;
+    width: 400px;
+    height:255px;
+    background-color: darkgray;
+    top: 245px;
+    right: 360px;
+    opacity: 0.6;
+}
+#username{
+    position: absolute;
+    width: 375px;
+    height: 45px;
+    font-size: 30px;
+    top: 28px;
+    right: 10px;
+    border: 2px solid #fff;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+}
+#password{
+    position: absolute;
+    width: 375px;
+    height: 45px;
+    font-size: 30px;
+    top: 90px;
+    right:10px;
+    color: black;
+    border: 2px solid #fff;
+    background-color: #fff;
+    text-align: center;
+}
+#a1{
+	text-decoration:none;
+	position: absolute;
+	color: #000;
+	font-size: 19px;
+	top: 210px;
+	right: 53px;
+
+}
+#a2{
+	text-decoration:none;
+	position: absolute;
+	color: #000;
+	font-size: 19px;
+	top: 210px;
+	right: 254px;
+}
+#btn{
+	position: absolute;
+    width: 379px;
+    height: 45px;
+    font-size: 27px;
+    top: 154px;
+    right: 10px;
+    color: black;
+    border: 2px solid #fff;
+    background-color: #fff;
+}

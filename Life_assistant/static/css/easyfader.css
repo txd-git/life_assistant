@@ -1,0 +1,48 @@
+/* 对index.css的样式补充 */
+
+/* 为ul设置一个高度 */
+/* 内边距设置为百分比单位时，统一指宽度的百分比 */
+.fader{
+    padding-top: 57%;
+}
+/* 每一张轮播图 */
+.fader .slide{
+    height: 100%;
+    position: absolute;
+    top: 0;
+    /* 添加切换图片的过度效果 */
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.5s;
+}
+/* 重写toppic下的图片高度，与轮播图对齐 */
+.toppic li img{
+    height: 206px;
+}
+
+/* 左右箭头和轮播图页标设置堆叠次序，显示在最上方的图片之上 */
+.prev,.next{
+    z-index: 4;
+}
+.prev{
+    cursor: pointer;
+}
+.next{
+    cursor: pointer;
+}
+.pager_list{
+    z-index: 4 ;
+}
+/* 为轮播图页标样式（小圆点） */
+.pager_list li{
+    margin: 0 5px;
+    opacity: 0.5;
+    /* 利用文本缩进，隐藏不想要的文本 */
+    text-indent: -9999px;
+}
+/* 轮播图在当前图片对应的li中会添加一个class active */
+/* 鼠标移动时，让半透明的样式变成不透明 */
+.pager_list li.active,.pager_list li:hover{
+    opacity: 1;
+    cursor: pointer;
+}

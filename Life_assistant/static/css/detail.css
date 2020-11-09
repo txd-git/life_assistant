@@ -1,0 +1,95 @@
+header{
+    width: 100%;
+    height: 110px;
+    background-image: url("/static/imgs/xy.jpg");
+    background-size: 100% 90px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #ffffff;
+    position: relative;
+    margin-top: -32px;
+}
+main{
+    margin-top: 30px;
+    width: 900px;
+    height: 100%;
+    margin-left: 500px;
+}
+body{
+    background-image: url("/static/imgs/tuchong09.jpg");
+    background-size: 100% 100%;
+}
+#editor{
+    margin-left: -50px;
+    color: black;
+}
+.row{
+    margin-top: 30px;
+    margin-left: 200px;
+    color: black;
+    font-weight: bold;
+}
+.collapse{
+    width: 1000px;
+    margin-top: -5px;
+    margin-left: 300px;
+    color: #c69500;
+}
+.yummy-logo{color: #ffffff}
+.yummy-logo:hover{cursor: pointer;
+color: gold}
+.navbar{color: #ffffff}
+.nav-item,.nav-link{
+    margin-left: 60px;
+    width: 100px;
+    color: #ffffff;
+}
+.nav-link:hover{cursor: pointer;
+color: gold}
+.logo_area{
+position: absolute;
+    top: 35px;
+    left: 200px;
+    color: #c69500;
+}
+.yummy-logo{
+    color: #c69500;
+}
+.container{
+    margin-top: 30px;
+    margin-left: -100px;
+    color: black;
+}
+.news_con{
+    width: 700px;
+    height: 180px;
+    background-color: #e5f2f2;
+    border-radius: 15px 15px;
+    margin-left: 125px;
+    margin-top: 5px;
+}
+
+.news_con>div{
+margin-top: -10px;
+}
+.news_con>button{
+    margin-top: 20px;
+    margin-left: 50px;
+}
+.news_con>p{
+  margin-top: -8px;
+}
+.popBox{
+    position: absolute;
+    top: 260px;
+    right: 490px;
+    z-index: 50;
+    color: black;
+    font-weight: bold;
+}
+.sgBtn{
+        background-color: #28a745;
+}
+.sgBtn:hover{
+    cursor: pointer;
+}

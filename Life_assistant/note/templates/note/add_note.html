@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加笔记</title>
+    <!--引入外部css文件-->
+    <link href="/static/css/all_note.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/add_note.css" rel="stylesheet" type="text/css">
+    <script src="/static/js/jquery-1.11.3.js"></script>
+</head>
+<body>
+<script>
+        $(function () {
+            var token = window.localStorage.getItem('dnblog_token');
+            var username = window.localStorage.getItem('dnblog_user');
+            var post_data = {'token':token,'username':username};
+            $.ajax({
+                    type:"post",
+                    contentType:"application/json",
+                    dataType:"json",
+                    url:"/login/validation_state",
+                    data:JSON.stringify(post_data),
+                    beforeSend: function(request) 	{request.setRequestHeader("Authorization", token)},
+                    success:function (result) {
+                        if(result.code!=200){
+                            alert(result.error);
+                            window.location = '/login/index'
+                        }
+                    }
+            })
+        })
+    </script>
+<header>
+    <!-- 导航栏 -->
+    <nav>
+        <!--logo-->
+        <h1 class="logo">
+            <a href="#">随身笔记</a>
+        </h1>
+        <!--导航菜单-->
+        <ul>
+            <li><a href="/login/home_page">助手首页</a></li>
+            <li><a href="/tq/index">智能天气</a></li>
+            <li><a href="/qiu/index">双色球</a></li>
+            <li><a href="/dict/check_word">单次查询</a></li>
+            <li><a href="/speech/index">语音识别</a></li>
+            <li><a href="/note/all_notes">笔记首页</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div>
+        <p id="title">
+            标题：<input type="text" name="title">
+        </p>
+         <button id="btn">提交</button>
+        <p id="content">
+            <textarea name="content" cols="100" rows="30"></textarea>
+        </p>
+
+    </div>
+</main>
+<footer>
+    <div>
+        <a href="/login/home_page">---Life_assiatant---</a>
+        <a href="/note/page_add_note">--个人随笔-添加笔记--</a>
+        <a href="#">--备--智能助手--398号---1</a>
+    </div>
+</footer>
+<script>
+$(
+    $('#btn').click(function () {
+        var title = $("input[name='title']").val();
+        var content = $('textarea').val()
+        var username = window.localStorage.getItem('dnblog_user');
+        var post_data = {'title':title,'content':content,'username':username}
+        console.log(post_data)
+        $.ajax({
+            type:"post",
+            contentType:"application/json",
+            dataType:"json",
+            url:"/note/add_note",
+            data:JSON.stringify(post_data),
+            success:function (result) {
+                if(result.code===200){
+                    alert('添加成功');
+                    window.location = '/note/all_notes'
+                }
+                else {alert(result.error)}
+            }
+            })
+    })
+)
+</script>
+</body>
+</html>

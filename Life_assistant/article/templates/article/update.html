@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑内容</title>
+    <script src="/static/js/jquery-2.2.4.min.js"></script>
+    <script src="/static/js/wangEditor.js"></script>
+    <script src="/static/js/xcConfirm.js"></script>
+     <link type="text/css" rel="styleSheet"  href="/static/css/create_article.css" />
+</head>
+<body>
+   <header>
+        <!-- 导航栏 -->
+        <nav>
+            <!-- logo -->
+            <h1 class="logo">
+                <a href="#">生活小助手</a>
+            </h1>
+            <!-- 导航菜单 -->
+            <ul>
+                <li>
+                    <a href="/login/home_page">网站首页</a>
+                </li>
+                <li>
+                    <a href="/tq/index">智能天气</a>
+                </li>
+                <li>
+                    <a href="/qiu/index">双色球</a>
+                </li>
+                <li>
+                    <a href="/speech/index" style="color: yellow">语音识别</a>
+                </li>
+                <li>
+                    <a href="/note/all_notes">生活笔记</a>
+                </li>
+                <li>
+                    <a href="/dict/check_word">单词查询</a>
+                </li>
+                 <li>
+                    <a href="/article/artlist">吐槽论坛</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+<form method="post" enctype="multipart/form-data">
+<div class="col-md-6" id="di">
+    <label for="title" id="lab">文章标题</label>
+    <!-- 文本框 -->
+    <input type="text" id="title" name="title" value="{{ article.title }}">
+    <div>
+        <label for="body" id="leb">文章正文</label>
+        <br>
+        <!-- 文本区域 -->
+        <textarea type="text" id="body" name="body" rows="12">{{ article.body }}</textarea>
+    </div>
+    <div>
+    </div>
+    <div>
+        <button type="submit" id="btn">提交</button>
+    </div>
+
+</div>
+</form>
+</body>
+    <script>
+        $(function () {
+            var token = window.localStorage.getItem('dnblog_token');
+            var username = window.localStorage.getItem('dnblog_user');
+            var post_data = {'token':token,'username':username};
+            $.ajax({
+                    type:"post",
+                    contentType:"application/json",
+                    dataType:"json",
+                    url:"/login/validation_state",
+                    data:JSON.stringify(post_data),
+                    beforeSend: function(request) {request.setRequestHeader("Authorization", token)},
+                    success:function (result) {
+                        if(result.code!=200){
+                            alert(result.error);
+                            window.location = '/login/index'
+                        }
+                    }
+            })
+        })
+    </script>
+</html>

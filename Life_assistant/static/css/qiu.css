@@ -1,0 +1,217 @@
+    h1,h2,h3,p,body,ul,li{
+    padding: 0;
+    margin: 0;
+}
+ul{
+    list-style: none;/*去掉列表默认样式 小黑点*/
+}
+a{
+    text-decoration: none;/*去下划线*/
+}
+body{
+    width: 100%;
+    height: 100%;
+    font: 16px 'Courier New';
+    background-image: url(/static/imgs/caipiao.jpg);
+    background-size: 100% 100%;
+    z-index: 61;
+}
+
+/****************header********************/
+header{
+    width: 100%;
+    /* height: 80px; */
+    background-image: url("/static/imgs/xy.jpg");
+    background-size: 100% 100%;
+    top: 0;
+    z-index: 999;
+}
+nav{
+    /* 控制内容位置 */
+    width: 1340px;
+    height: 80px;
+    margin: 0 auto;
+    line-height: 80px;
+}
+/* logo  h1 */
+/* 字体大小26px  字体颜色#c1edf2  能够和后面元素在同一行显示 */
+.logo{
+    font-size: 30px;
+    float: left;
+    margin-left: 55px;
+}
+.logo a{
+    color: #c1edf2;
+}
+/* 导航菜单 ul */
+/* li水平排列  字体颜色#e5f2f2 鼠标移入时字体变成白色 */
+/* 调整导航菜单和logo的距离 调整li之间的距离 */
+nav>ul{
+    float: left;
+    margin-left: 100px;
+}
+nav>ul>li{
+    float: left;
+    padding: 0 30px;
+    font-size: 20px;
+    font-weight: bold;
+}
+nav>ul>li>a{
+    color:#e5f2f2;
+}
+nav>ul>li>a:hover{
+    color: gold;
+}
+main{
+    width: 1340px;
+    height: 900px;
+    position: relative;
+    margin-top: 115px;
+    margin-left: 200px;
+}
+.tu{
+    width: 900px;
+    height: 90px;
+    border-radius: 50px 50px;
+    position: absolute;
+    top: 20px;
+    right: -50px;
+    background-image: url(/static/imgs/xy.jpg);
+    background-size: 900px 90px;
+    text-align: center;
+    line-height: 90px;
+    font-size: 35px;
+    font-weight: bold;
+    z-index: 61;
+    color: rgb(219, 188, 12);
+    font-style: oblique;
+}
+#btn1 ,#btn2{
+    position: absolute;
+    top: 160px;
+    width: 200px;
+    height: 40px;
+    border-radius: 10px 10px;
+    color: rgb(31, 154, 175);
+    font-size: 20px;
+    text-align: center;
+    line-height: 40px;
+}
+#btn1{
+    right: -50px;
+}
+#btn2{
+right: 230px;
+}
+input{
+    position: absolute;
+    top: 160px;
+    width: 300px;
+    height: 37px;
+    right: 530px;
+    z-index: 61;
+    background-color: lightgrey;
+    font-size: 17px;
+}
+#d0{
+    position: absolute;
+    top: -80px;
+    left: -120px;
+    width: 570px;
+    height: 855px;
+    /* background-color: cadetblue; */
+    background-image: url(/static/imgs/天上掉钱gif动图.gif);
+    z-index: 60;
+    background-size: 570px 855px;
+
+}
+#t2{
+    position: absolute;
+    top: 350px;
+    right: 110px;
+    /*background-color: #fff;*/
+}
+#dt4,#dt5{
+        width: 600px;
+        height: 70px;
+        text-align: center;
+        line-height: 70px;
+        position: absolute;
+        right: 80px;
+        color: rgb(231, 140, 2);
+        font-style: oblique;
+        font-size: 50px;
+        font-weight:bold ;
+        background-image: url(/static/imgs/mm.jpg);
+        background-size:600px 70px ;
+}
+#dt4{
+    border-radius:15px 15px 0 0;
+    bottom: 315px;
+}
+#dt5{
+    border-radius:0 0 15px 15px;
+    bottom: 245px;
+}
+.tr11{
+    width: 160px;
+    color: green;
+}
+.tr22{
+    width: 300px;
+}
+.tr22,.tr21{
+    color: red;
+}
+.ta0{
+    border-radius: 10px 10px;
+    border: 1px;
+    text-align: center;
+    vertical-align: middle;
+    position: absolute;
+    bottom: -95px;
+    right: -35px;
+    width: 630px;
+    height:102px;
+    font-size: 25px;
+    background-image: url(/static/imgs/oo.jpg);
+    background-size:700px 100px ;
+    z-index: 60;
+}
+.ip{
+    width: 780px;
+    height: 74px;
+    background-image: url("/static/imgs/hugg.jpg");
+    background-size: 780px 74px;
+    position: absolute;
+    right: -100px;
+    bottom: 8px;
+    border-radius: 20px 20px 0 0;
+}
+p{
+    width: 730px;
+    height: 64px;
+    text-align: center;
+    line-height: 64px;
+    z-index: 62;
+    font-size: 26px;
+    font-weight: bold;
+    color: orange;
+    position: absolute;
+    right: -30px;
+    bottom: 2px;
+}
+
+.ipp{
+    width: 200px;
+    height: 140px;
+    position: absolute;
+    left: -830px;
+    bottom: 40px;
+    background-image: url("/static/imgs/hujg.png");
+    background-size: 200px 140px;
+    z-index: 62;
+}
+#bbs>a{
+    color: gold;
+}
